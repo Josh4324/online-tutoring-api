@@ -16,6 +16,14 @@ exports.signUpValidationRules = () => {
     ]
 }
 
+exports.loginValidationRules = () => {
+    return [
+        
+        body("email").notEmpty().isEmail().normalizeEmail().withMessage("Email is required"),
+        body("password").notEmpty().withMessage("Password is Required")
+    ]
+}
+
 exports.validate = (req, res, next) => {
     try {
         const errors = validationResult(req)
