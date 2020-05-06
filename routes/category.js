@@ -7,6 +7,6 @@ const userController = require('../controllers/category');
 router.get('/', auth.adminAuthorization, userController.getAllCategories);
 router.post('/', auth.adminAuthorization, userController.addCategory);
 router.put('/:category_name', auth.adminAuthorization, userController.updateCategory);
-
+router.delete('/:category_name', auth.adminAuthorization, userController.deleteCategory);
 
 module.exports = router;
