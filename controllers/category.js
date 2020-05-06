@@ -160,7 +160,7 @@ exports.addSubject = (req, res, next) => {
 
 }
 
-exports.updateSubject = (req, res, next) => {
+exports.updateSubjectById = (req, res, next) => {
     const subject_id = req.params.id;
     const {
         name,
@@ -192,4 +192,26 @@ exports.updateSubject = (req, res, next) => {
         }
     )
     
+}
+
+exports.deleteSubjectById = (req, res, next) => {
+    const subject_id = req.params.id;
+    const filter = {
+        _id: subject_id
+    };
+    Subject.findOneAndDelete(filter).then((subject) => {
+        if (subject) {
+            return res.status(200).send({
+                status: true,
+                message: "Subject was deleted successfully",
+                name: subject.name
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
 }
