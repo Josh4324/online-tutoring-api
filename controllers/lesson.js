@@ -59,3 +59,34 @@ exports.getLessonById = (req, res, next) => {
         }
     )
 }
+
+exports.updateLessonById = (req, res, next) => {
+    const lesson_id = req.params.id;
+    const {name, description} = req.body;
+    const filter = {
+        _id: lesson_id
+    };
+    const update = {
+        name,
+        description
+    };
+    Lesson.findOneAndUpdate(filter, update, {
+        new: true
+    }).then((lesson) => {
+        if (lesson) {
+            return res.status(201).send({
+                status: true,
+                message: "Lesson was updated successfully",
+                name: lesson.name,
+                id: lesson._id,
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+    
+}
