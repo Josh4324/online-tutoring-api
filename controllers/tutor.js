@@ -20,3 +20,21 @@ exports.getAllTutors = (req, res, next) => {
     )
 }
 
+exports.getTutorById = (req, res, next) => {
+    const _id = req.params.id;
+    User.find({_id}).then((tutor) => {
+        if (tutor) {
+            return res.status(200).send({
+                status: true,
+                data: tutor
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
+

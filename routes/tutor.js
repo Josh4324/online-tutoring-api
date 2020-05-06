@@ -7,5 +7,6 @@ const userController = require('../controllers/tutor');
 
 
 router.get('/', auth.adminAuthorization, userController.getAllTutors);
+router.get('/:id', auth.adminAuthorization, userController.getTutorById);
 
 module.exports = router;
