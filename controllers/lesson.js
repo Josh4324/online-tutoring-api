@@ -38,3 +38,24 @@ exports.getAllLessons = (req, res, next) => {
         }
     )
 }
+
+exports.getLessonById = (req, res, next) => {
+    const lesson_id = req.params.id;
+    const filter = {
+        _id: lesson_id
+    };
+    Lesson.findOne(filter).then((lesson) => {
+        if (lesson) {
+            return res.status(200).send({
+                status: true,
+                data:lesson
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
