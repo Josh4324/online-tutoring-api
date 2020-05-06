@@ -20,3 +20,21 @@ exports.bookLesson = (req, res, next) => {
             })
         })
 }
+
+exports.getAllLessons = (req, res, next) => {
+    const filter = {};
+    Lesson.find(filter).then((lessons) => {
+        if (lessons) {
+            return res.status(200).send({
+                status: true,
+                data: lessons
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
