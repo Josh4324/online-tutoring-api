@@ -1,8 +1,13 @@
 const Category = require("../models/category");
 
 exports.addCategory = (req, res, next) => {
-    const {name, description} = req.body
-    Category.findOne({name}).then((category) => {
+    const {
+        name,
+        description
+    } = req.body
+    Category.findOne({
+        name
+    }).then((category) => {
         if (category) {
             return res.status(423).send({
                 status: false,
@@ -10,18 +15,45 @@ exports.addCategory = (req, res, next) => {
             });
         }
     })
-    let category = new Category ({
+    let category = new Category({
         name,
         description
     });
     return category.save()
-    .then((category) => {
-        console.log(result);
-        res.status(201).send({
-            status: true,
-            message: "Category created successfully",
-            name: category.name,
-            id: category._id,
-        })
+        .then((category) => {
+            console.log(result);
+            res.status(201).send({
+                status: true,
+                message: "Category created successfully",
+                name: category.name,
+                id: category._id,
+            })
+        }).catch((err) => console.log(err));
+}
+
+exports.updateCategory = (req, res, next) => {
+    const category_name = req.category_name;
+    const {
+        name,
+        description
+    } = req.body;
+    const filter = {
+        name: category_name
+    };
+    const update = {
+        name,
+        description
+    };
+    Category.findOneAndUpdate(filter, update, {
+        new: true
+    }).then((category) => {
+        if (category) {
+            return res.status(201).send({
+                status: true,
+                message: "Category was updated successfully",
+                name: category.name,
+                id: category._id,
+            });
+        }
     }).catch((err) => console.log(err));
 }
