@@ -215,3 +215,27 @@ exports.deleteSubjectById = (req, res, next) => {
         }
     )
 }
+
+exports.getSubjectByCategories = (req, res, next) => {
+    const category_name = req.params.category_name;
+    const filter = {
+        name: category_name
+    };
+    Category.findOne(filter).then((category) => {
+        Subject.find({category:category._id}).then((subjects)=> {
+            if(subjects){
+                return res.status(200).send({
+                    status: true,
+                    data: subjects
+                });
+            }
+        })
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+
+}
