@@ -239,3 +239,24 @@ exports.getSubjectByCategories = (req, res, next) => {
     )
 
 }
+
+exports.getOneSubjectById = (req, res, next) => {
+    const subject_id = req.params.id;
+    const filter = {
+        _id: subject_id
+    };
+    Subject.findOne(filter).then((subject) => {
+        if (subject) {
+            return res.status(200).send({
+                status: true,
+                data:subject
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
