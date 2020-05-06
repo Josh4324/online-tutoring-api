@@ -42,7 +42,8 @@ exports.signUp = (req, res, next) => {
                             res.status(201).send({
                                 status: true,
                                 message: "User account successfully created",
-                                id: user._id
+                                id: user._id,
+                                role: user.role
                             })
                         }
                     })
