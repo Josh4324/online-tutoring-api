@@ -1,4 +1,5 @@
 const Category = require("../models/category");
+const Subject = require("../models/subject");
 
 exports.addCategory = (req, res, next) => {
     const {
@@ -13,22 +14,28 @@ exports.addCategory = (req, res, next) => {
                 status: false,
                 message: "This category already exists",
             });
+        } else {
+            let category = new Category({
+                name,
+                description
+            });
+            return category.save()
+                .then((category) => {
+                    res.status(201).send({
+                        status: true,
+                        message: "Category created successfully",
+                        name: category.name,
+                        id: category._id,
+                    })
+                })
         }
-    })
-    let category = new Category({
-        name,
-        description
-    });
-    return category.save()
-        .then((category) => {
-            console.log(result);
-            res.status(201).send({
-                status: true,
-                message: "Category created successfully",
-                name: category.name,
-                id: category._id,
-            })
-        }).catch((err) => console.log(err));
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
 }
 
 exports.updateCategory = (req, res, next) => {
@@ -55,7 +62,13 @@ exports.updateCategory = (req, res, next) => {
                 id: category._id,
             });
         }
-    }).catch((err) => console.log(err));
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
 }
 
 exports.getAllCategories = (req, res, next) => {
@@ -67,7 +80,13 @@ exports.getAllCategories = (req, res, next) => {
                 data: categories
             });
         }
-    })
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
 }
 
 exports.deleteCategory = (req, res, next) => {
@@ -83,5 +102,60 @@ exports.deleteCategory = (req, res, next) => {
                 name: category.name
             });
         }
-    }).catch((err) => console.log(err));
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
+
+exports.addSubject = (req, res, next) => {
+    const {
+        category_name
+    } = req.params
+    let {
+        name,
+        description
+    } = req.body;
+    const filter = {
+        name: category_name
+    };
+
+    Category.findOne(filter).then((category) => {
+        if (category) {
+            Subject.findOne({
+                name
+            }).then((subject) => {
+                if (subject) {
+                    if (category._id.equals(subject.category)) {
+                        return res.status(423).send({
+                            status: false,
+                            message: "This subject already exists",
+                        });
+                    }
+                } else {
+                    let subject = new Subject({
+                        name,
+                        description,
+                        category: category._id
+                    })
+                    return subject.save()
+                        .then((subject) => {
+                            res.status(201).send({
+                                status: true,
+                                message: "Subject created successfully",
+                                name: subject.name,
+                                category_id: subject.category,
+                                id: subject._id,
+                            })
+                        })
+                }
+            })
+
+
+        }
+    })
+
 }

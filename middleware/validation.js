@@ -1,5 +1,6 @@
 const {
     body,
+    param,
     validationResult
 } = require('express-validator');
 
@@ -21,6 +22,21 @@ exports.loginValidationRules = () => {
         
         body("email").notEmpty().isEmail().normalizeEmail().withMessage("Email is required"),
         body("password").notEmpty().withMessage("Password is Required")
+    ]
+}
+
+exports.categoryPostValidationRules = () => {
+    return [
+        body("name").notEmpty().withMessage("Name is required"),
+        body("description").notEmpty().withMessage("Description is Required")
+    ]
+}
+
+exports.subjectPostValidationRules = () => {
+    return [
+        param("category_name").notEmpty().isIn(["primary", "JSS", "SSS"]).withMessage("Category Name should be 'primary' or 'JSS' or 'SSS' "),
+        body("name").notEmpty().withMessage("Name is required"),
+        body("description").notEmpty().withMessage("Description is Required")
     ]
 }
 
