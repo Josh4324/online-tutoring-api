@@ -49,7 +49,6 @@ exports.deactivateTutorById = (req, res, next) => {
         _id
     };
     User.findOneAndDelete(filter).then((tutor) => {
-        console.log(tutor);
         if (tutor) {
             return res.status(200).send({
                 status: true,

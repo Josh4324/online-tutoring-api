@@ -40,6 +40,13 @@ exports.subjectPostValidationRules = () => {
     ]
 }
 
+exports.bookPostValidationRules = () => {
+    return [
+        body("name").notEmpty().withMessage("Name is required"),
+        body("description").notEmpty().withMessage("Description is Required")
+    ]
+}
+
 exports.validate = (req, res, next) => {
     try {
         const errors = validationResult(req)
