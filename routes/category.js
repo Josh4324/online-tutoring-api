@@ -5,7 +5,7 @@ const validation = require("../middleware/validation");
 
 const userController = require('../controllers/category');
 
-router.get('/', auth.adminAuthorization, userController.getAllCategories);
+router.get('/', auth.authentication, userController.getAllCategories);
 router.get('/:category_name/subject', auth.authentication, userController.getSubjectByCategories);
 router.get('/:category_name/subject/:id', auth.authentication, userController.getOneSubjectById);
 router.post('/', auth.adminAuthorization, validation.categoryPostValidationRules(), validation.validate, userController.addCategory);
