@@ -25,7 +25,7 @@ exports.signUp = (req, res, next) => {
                 message: "This email already exists",
             });
         }
-    });
+    })
     bcrypt
         .hash(password, 12)
         .then((password) => {
@@ -38,19 +38,15 @@ exports.signUp = (req, res, next) => {
             });
             return user.save();
         })
-        .then(() =>
-            User.findOne({
-                email
-            }).then((user) => {
-                if (user) {
-                    res.status(201).send({
-                        status: true,
-                        message: "User account successfully created",
-                        id: user._id
-                    })
-                }
-            })
-        ).catch((err) => console.log(err));
+        .then((user) => {
+            if (user) {
+                res.status(201).send({
+                    status: true,
+                    message: "User account successfully created",
+                    id: user._id
+                })
+            }
+        }).catch((err) => console.log(err));
 };
 
 exports.logIn = (req, res, next) => {
@@ -90,6 +86,6 @@ exports.logIn = (req, res, next) => {
                     token,
                 });
             });
-        })
-        .catch((err) => console.log(err));
+        }).catch((err) => console.log(err));
+
 };
