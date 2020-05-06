@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const userRoutes = require('./routes/user');
 const categoryRoutes = require('./routes/category');
 const searchRoutes = require('./routes/search');
+const tutorRoutes = require('./routes/tutor');
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -18,6 +19,7 @@ app.use(express.urlencoded({
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/categories', categoryRoutes);
 app.use('/api/v1/search',searchRoutes)
+app.use('/api/v1/tutors',tutorRoutes)
 
 
 app.use((req, res) => {
