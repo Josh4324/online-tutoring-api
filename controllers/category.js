@@ -159,3 +159,37 @@ exports.addSubject = (req, res, next) => {
     })
 
 }
+
+exports.updateSubject = (req, res, next) => {
+    const subject_id = req.params.id;
+    const {
+        name,
+        description
+    } = req.body;
+    const filter = {
+        _id: subject_id
+    };
+    const update = {
+        name,
+        description
+    };
+    Subject.findOneAndUpdate(filter, update, {
+        new: true
+    }).then((subject) => {
+        if (subject) {
+            return res.status(201).send({
+                status: true,
+                message: "Subject was updated successfully",
+                name: subject.name,
+                id: subject._id,
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+    
+}
