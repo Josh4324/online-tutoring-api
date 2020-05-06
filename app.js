@@ -23,6 +23,10 @@ app.use((req, res) => {
 });
 
 mongoose.set('useCreateIndex', true);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
 mongoose
     .connect(
         "mongodb+srv://josh:jesus000@cluster0-hziu4.mongodb.net/ota?retryWrites=true&w=majority", {

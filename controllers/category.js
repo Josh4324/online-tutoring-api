@@ -32,7 +32,7 @@ exports.addCategory = (req, res, next) => {
 }
 
 exports.updateCategory = (req, res, next) => {
-    const category_name = req.category_name;
+    const category_name = req.params.category_name;
     const {
         name,
         description
@@ -56,4 +56,16 @@ exports.updateCategory = (req, res, next) => {
             });
         }
     }).catch((err) => console.log(err));
+}
+
+exports.getAllCategories = (req, res, next) => {
+    const filter = {};
+    Category.find(filter).then((categories) => {
+        if(categories){
+            return res.status(200).send({
+                status: true,
+                data:categories
+            });
+        }
+    })
 }
