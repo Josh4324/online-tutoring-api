@@ -49,8 +49,31 @@ exports.tutorAuthorization = (req, res, next) => {
         const token = req.headers.authorization.split(" ")[1];
         const decodedToken = jwt.verify(token, process.env.SECRET);
         const role = decodedToken.role;
-        if (role !== "Admin" || role !== "Tutor") {
+        if (role !== "Admin" && role !== "Tutor") {
 
+            return res.status(401).json({
+                error: "UnAuthorized",
+                status: "error"
+            });
+        } else {
+            next()
+        }
+    } catch {
+        res.status(401).json({
+            error: "Unauthorized",
+            status: "error"
+        })
+    }
+}
+
+exports.adminAndSudentAuthorization = (req, res, next) => {
+    try {
+        const token = req.headers.authorization.split(" ")[1];
+        const decodedToken = jwt.verify(token, process.env.SECRET);
+        const role = decodedToken.role;
+        console.log(role);
+        if (role !== "Admin" && role !== "Student") {
+            console.log("error")
             return res.status(401).json({
                 error: "UnAuthorized",
                 status: "error"
