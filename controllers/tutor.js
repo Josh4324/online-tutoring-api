@@ -65,3 +65,31 @@ exports.deactivateTutorById = (req, res, next) => {
     )
 }
 
+exports.makeTutorAdmin = (req, res, next) => {
+    const _id = req.params.id;
+    const filter = {
+        role: "Tutor",
+        _id
+    };
+    const update = {
+        role:"Admin"
+    };
+    User.findOneAndUpdate(filter, update, {
+        new: true
+    }).then((tutor) => {
+        if (tutor) {
+            return res.status(201).send({
+                status: true,
+                message: "Tutor is now an Admin",
+                id: tutor._id,
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
+
