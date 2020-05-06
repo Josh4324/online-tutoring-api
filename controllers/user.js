@@ -17,36 +17,44 @@ exports.signUp = (req, res, next) => {
         });
     }
     User.findOne({
-        email,
-    }).then((user) => {
-        if (user) {
-            return res.status(423).send({
-                status: false,
-                message: "This email already exists",
-            });
-        }
-    })
-    bcrypt
-        .hash(password, 12)
-        .then((password) => {
-            let user = new User({
-                first_name,
-                last_name,
-                role,
-                email,
-                password,
-            });
-            return user.save();
-        })
-        .then((user) => {
+            email,
+        }).then((user) => {
             if (user) {
-                res.status(201).send({
-                    status: true,
-                    message: "User account successfully created",
-                    id: user._id
-                })
+                return res.status(423).send({
+                    status: false,
+                    message: "This email already exists",
+                });
+            } else {
+                bcrypt
+                    .hash(password, 12)
+                    .then((password) => {
+                        let user = new User({
+                            first_name,
+                            last_name,
+                            role,
+                            email,
+                            password,
+                        });
+                        return user.save();
+                    })
+                    .then((user) => {
+                        if (user) {
+                            res.status(201).send({
+                                status: true,
+                                message: "User account successfully created",
+                                id: user._id
+                            })
+                        }
+                    })
             }
-        }).catch((err) => console.log(err));
+        })
+        .catch(
+            (error) => {
+                res.status(500).json({
+                    error: error
+                });
+            }
+        )
 };
 
 exports.logIn = (req, res, next) => {
@@ -87,6 +95,11 @@ exports.logIn = (req, res, next) => {
                     token,
                 });
             });
-        }).catch((err) => console.log(err));
-
+        }).catch(
+            (error) => {
+                res.status(500).json({
+                    error: error
+                });
+            }
+        )
 };
