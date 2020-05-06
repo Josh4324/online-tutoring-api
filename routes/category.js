@@ -7,6 +7,7 @@ const userController = require('../controllers/category');
 
 router.get('/', auth.adminAuthorization, userController.getAllCategories);
 router.get('/:category_name/subject', auth.authentication, userController.getSubjectByCategories);
+router.get('/:category_name/subject/:id', auth.authentication, userController.getOneSubjectById);
 router.post('/', auth.adminAuthorization, validation.categoryPostValidationRules(), validation.validate, userController.addCategory);
 router.post('/:category_name/subject', auth.adminAuthorization, validation.subjectPostValidationRules(), validation.validate, userController.addSubject);
 router.put('/:category_name', auth.adminAuthorization, validation.categoryPostValidationRules(), validation.validate, userController.updateCategory);
