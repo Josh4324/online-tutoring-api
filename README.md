@@ -1,6 +1,6 @@
 # Online Tutoring API
 
-API - https://online-tutoring-api.herokuapp.com
+API - https://online-tutoring-api.herokuapp.com/api/v1
 
 ## Authentication
 
@@ -23,7 +23,7 @@ SignUp Endpoint
 POST https://online-tutoring-api.herokuapp.com/api/v1/user/signup
 
 Parameters Required - first_name, last_name, role, email and password
-`
+```
 {	
 	"first_name":"Eli",
 	"last_name":"Ade",
@@ -31,19 +31,19 @@ Parameters Required - first_name, last_name, role, email and password
 	"email":"eli@yahoo.com",
 	"password":"jesus000"
 }
-`
+```
 
 The role can only be "Tutor" or "Student" and it is case sensitive
 
 Success Response -
-`
+```
 {
     "status": true,
     "message": "User account successfully created",
     "id": "5eb45388885e400017666e0f",
     "role": "Student" or "Tutor"
 }
-`
+```
 
 Login Endpoint
 
@@ -51,20 +51,20 @@ POST https://online-tutoring-api.herokuapp.com/api/v1/user/login
 
 Parameters Required - email and password
 
-`
+```
 {	
 	"email":"eli@yahoo.com",
 	"password":"jesus000"
 }
-`
+```
 Success Response -
-`
+```
 {
     "status": "success",
     "_id": "5eb45388885e400017666e0f",
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkZUB5YWhvby5jb20iLCJfaWQiOiI1ZWI0NTM4ODg4NWU0MDAwMTc2NjZlMGYiLCJyb2xlIjoiU3R1ZGVudCIsImlhdCI6MTU4ODg3NjQ0NCwiZXhwIjoxNTg4ODgwMDQ0fQ.4OMcjqoCUVXf4wz73cFMKg3lI9amGRv4P2L_BYs54l0"
 }
-`
+```
 
 
 
