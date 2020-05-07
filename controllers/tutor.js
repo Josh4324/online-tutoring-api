@@ -103,7 +103,7 @@ exports.takeSubjectInCategory = (req, res, next) => {
     const update = {
         user: _id
     };
-    Subject.findOneAndUpdate(filter, update, {
+    Subject.findOneAndUpdate(filter, {$push:update}, {
         new: true
     }).then((subject) => {
         if (subject) {
