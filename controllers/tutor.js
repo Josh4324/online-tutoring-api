@@ -181,3 +181,32 @@ exports.updateRegisteredSubject = (req, res, next) => {
         }
     )
 }
+
+exports.deleteRegisteredSubject = (req, res, next) => {
+    const _id = req.params.id;
+    const subject_id = req.params.subject_id;
+    const filter = {
+        _id: subject_id
+    }
+    Subject.findOne(filter).then((subject) => {
+        if (subject.user.equals(_id)) {
+            Subject.findOneAndDelete(filter).then((subject) => {
+                if (subject) {
+                    return res.status(200).send({
+                        status: true,
+                        message: "Subject deleted successfully",
+                        name: subject.name,
+                        category_id: subject.category,
+                        id: subject._id,
+                    });
+                }
+            })
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
