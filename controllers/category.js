@@ -96,11 +96,16 @@ exports.deleteCategory = (req, res, next) => {
     };
     Category.findOneAndDelete(filter).then((category) => {
         if (category) {
-            return res.status(200).send({
-                status: true,
-                message: "Category was deleted successfully",
-                name: category.name
-            });
+            Subject.deleteMany({
+                category: category._id
+            }).then(() => {
+                return res.status(200).send({
+                    status: true,
+                    message: "Category was deleted successfully",
+                    name: category.name
+                });
+            })
+
         }
     }).catch(
         (error) => {
@@ -191,7 +196,7 @@ exports.updateSubjectById = (req, res, next) => {
             });
         }
     )
-    
+
 }
 
 exports.deleteSubjectById = (req, res, next) => {
@@ -222,8 +227,10 @@ exports.getSubjectByCategories = (req, res, next) => {
         name: category_name
     };
     Category.findOne(filter).then((category) => {
-        Subject.find({category:category._id}).then((subjects)=> {
-            if(subjects){
+        Subject.find({
+            category: category._id
+        }).then((subjects) => {
+            if (subjects) {
                 return res.status(200).send({
                     status: true,
                     data: subjects
@@ -249,7 +256,7 @@ exports.getOneSubjectById = (req, res, next) => {
         if (subject) {
             return res.status(200).send({
                 status: true,
-                data:subject
+                data: subject
             });
         }
     }).catch(
