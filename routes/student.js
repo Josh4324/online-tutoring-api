@@ -5,7 +5,7 @@ const auth = require("../middleware/auth");
 
 const userController = require('../controllers/student');
 
-router.get('/tutors/subject_id', auth.authentication, userController.getAllTutorsSubject);
+router.get('/tutors/:subject_id', auth.authentication, userController.getAllTutorsSubject);
 
 
 module.exports = router;
