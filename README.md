@@ -67,6 +67,76 @@ Success Response -
 ```
 
 
+## Admin
+
+Only a user with an Admin Role can use this route
+
+Admin Details 
+
+- email:"king@yahoo.com",
+- password:"12345"
+
+Admin can create subjects under 3 categories: primary, JSS, SSS - Endpoint
+
+ POST https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject
+
+Parameters Required - name and description
+:category_name - i.e primary, JSS, SSS
+
+```
+{
+	"name":"English",
+	"description":"English"
+}
+```
+Success Response -
+```
+{
+    "status": true,
+    "message": "Subject created successfully",
+    "name": "English",
+    "category_id": "5eb3786bcfa699267c25f045",
+    "id": "5eb46103b1a95b001751019f"
+}
+```
+
+Admin can update a subject in a category (by Id) - Endpoint
+
+PUT https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject/:id
+
+Parameters Required - name and description
+:category_name - i.e primary, JSS, SSS
+:id - subject_id("5eb46103b1a95b001751019f")
+```
+{
+	"name":"English",
+	"description":"English"
+}
+```
+Success Response -
+```
+{
+    "status": true,
+    "message": "Subject was updated successfully",
+    "name": "English",
+    "id": "5eb46103b1a95b001751019f"
+}
+```
+
+Admin can delete a subject in a category (by Id)
+
+DELETE https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject/:id
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "message": "Subject was deleted successfully",
+    "name": "English"
+}
+```
 
 
 
@@ -96,14 +166,6 @@ General: (For Admin, Tutors and Students);
 
 Admin:
 
-1) Admin can create subjects under 3 categories: primary, JSS, SSS
-- POST /api/v1/categories/:category_name/subject
-    - parameters - {"name":"ade","description":"a description"}
-2) Admin can update a subject in a category (by Id)
-- POST /api/v1/categories/:category_name/subject/:id
-    - parameters - {"name":"ade","description":"a description"}
-3) Admin can delete a subject in a category (by Id)
-- DELETE /api/v1/categories/:category_name/subject/:id
 4) Admin can delete or update a category
 - DELETE /api/v1/categories/:category_name
 - PUT    /api/v1/categories/:category_name
