@@ -656,27 +656,87 @@ Success Response -
 
 ```
 
+**Tutors can delete a registered subject. - Endpoint**
 
-4. Tutors can delete a registered subject
+DELETE https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id/subject/:subject_id
 
-- DELETE /api/v1/tutors/:id/subject/:subject_id
+- :subject_id - subject id
+- :id - tutor id
 
-Students:
+No parameters needed
 
-1. Students can sign up.
+Success Response -
 
-- POST /api/v1/user/signup
-- parameter - {
-  "first_name":"Eli",
-  "last_name":"Ade",
-  "role":"Tutor",
-  "email":"eli@yahoo.com",
-  "password":"jesus000"
-  }
+```
+{
+    "status": true,
+    "message": "Subject deleted successfully",
+    "name": "Math",
+    "category_id": "5eb3786bcfa699267c25f045",
+    "id": "5eb476a10a0e01001715fd23"
+}
+```
 
-2. Students can see all tutors taking a subject in a category
+## Students:
 
-3. Students can book lessons
+**Students can see all tutors taking a subject in a category. - Endpoint**
 
-- POST /api/v1/lessons
-- parameters - {"name":"ade","description":"a description"}
+GET https://online-tutoring-api.herokuapp.com/api/v1/students/tutors/subject_id
+
+- :subject_id - subject id
+
+No parameters needed
+
+Success Response -
+
+```
+{
+    "status": true,
+    "data": [
+        {
+            "subjects": [
+                "5eb476a10a0e01001715fd23",
+                "5eb49bd30b7e345e1c5695a3"
+            ],
+            "_id": "5eb3451f7e5ab74ebc94a0d2",
+            "first_name": "Esther",
+            "last_name": "Odejobi",
+            "role": "Tutor",
+            "email": "esther@yahoo.com",
+            "password": "$2a$12$0.z9FT74JFjBPq1tmboZ5OMsKHuJZYLJaMG5Kxdh7tAi0RfVbHEvK",
+            "createdAt": "2020-05-06T23:15:43.152Z",
+            "updatedAt": "2020-05-07T23:39:49.025Z",
+            "__v": 0
+        }
+    ]
+}
+```
+
+
+
+**Students can book lessons. - Endpoint**
+
+POST https://online-tutoring-api.herokuapp.com/api/v1/lessons
+
+Parameters Required -
+
+- name
+- description
+
+```
+{
+	"name":"Verbal Lesson",
+	"description":"verbal lesson"
+}
+```
+
+Success Response -
+
+```
+{
+    "status": true,
+    "message": "Lesson created successfully",
+    "name": "Verbal Lesson",
+    "id": "5eb46d413cecb24f60382973"
+}
+```

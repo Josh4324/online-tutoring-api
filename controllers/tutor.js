@@ -209,7 +209,7 @@ exports.deleteRegisteredSubject = (req, res, next) => {
         _id: subject_id
     }
     Subject.findOne(filter).then((subject) => {
-        if (subject.user.equals(_id)) {
+        if (subject.tutors.indexOf(_id) !== -1) {
             Subject.findOneAndDelete(filter).then((subject) => {
                 if (subject) {
                     return res.status(200).send({
