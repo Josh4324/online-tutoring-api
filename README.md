@@ -1,6 +1,6 @@
 **README**
 
-Authorization token can be gotten on login and it will be used on all the endpoints
+***Authorization token can be gotten on login and it will be used on all the endpoints***
 
 General: (For Admin, Tutors and Students);
 1) Admin/Students /tutors can retrieve a subject in a category (by Id)
