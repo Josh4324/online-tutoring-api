@@ -7,6 +7,7 @@ exports.authentication = (req, res, next) => {
         const decodedToken = jwt.verify(token, process.env.SECRET);
         const role = decodedToken.role;
         if (!role) {
+            console.log(role)
             return res.status(401).json({
                 error: "UnAuthorized",
                 status: "error"
@@ -88,4 +89,3 @@ exports.adminAndSudentAuthorization = (req, res, next) => {
         })
     }
 }
-
