@@ -320,19 +320,102 @@ Success Response -
 }
 ```
 
+**Admin can get a lesson (by Id) - Endpoint**
 
+GET https://online-tutoring-api.herokuapp.com/api/v1/lessons/:id
+
+- :id - lesson-id
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "data": {
+        "_id": "5eb46d413cecb24f60382973",
+        "name": "Verbal Lesson",
+        "description": "verbal lesson",
+        "__v": 0
+    }
+}
+```
+
+**Admin can update a lesson (by Id) - Endpoint**
+
+PUT https://online-tutoring-api.herokuapp.com/api/v1/lessons/:id
+
+- :id - lesson-id
+
+Parameters Required - 
+- name
+- description
+
+```
+{	
+	"name":"Verbal Lesson",
+	"description":"verbal lesson"
+}
+```
+Success Response -
+```
+{
+    "status": true,
+    "message": "Lesson was updated successfully",
+    "name": "Verbal Lesson",
+    "id": "5eb46d413cecb24f60382973"
+}
+```
+
+**Admin can delete a lesson (by Id) - Endpoint**
+
+DELETE https://online-tutoring-api.herokuapp.com/api/v1/lessons/:id
+
+- :id - lesson-id
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "message": "Lesson was deleted successfully",
+    "name": "Verbal Lesson"
+}
+```
+
+**Admin can make Tutor an Admin - Endpoint**
+
+PATCH /api/v1/tutors/:id
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "message": "Tutor is now an Admin",
+    "id": "5eb34fe04b6d3134b4f15208"
+}
+```
+
+## General: (For Admin, Tutors and Students);
+
+This a a general route, authentication is enough to access these routes
+
+
+**Admin/Students/tutors can retrieve a subject in a category (by Id) - Endpoint**
+
+GET https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject
 
 
 i.e https://online-tutoring-api.herokuapp.com/api/v1/categories - To get all categories
 
 
 
-Admin Details - 
-- email: "esther@yahoo.com"
-- password: "jesus000"
 
 General: (For Admin, Tutors and Students);
-1) Admin/Students /tutors can retrieve a subject in a category (by Id)
+1) Admin/Students/tutors can retrieve a subject in a category (by Id)
 - GET /api/v1/categories/:category_name/subject
 
 2) Admin/Students /tutors can retrieve all subjects, by category
@@ -346,22 +429,6 @@ General: (For Admin, Tutors and Students);
 6) Admin/Students /tutors can sign in.
 - POST /api/v1/user/login
   - parameters - {"email":"ade@yahoo.com","password":"*********"}
-
-Admin:
-
-
-9). Admin can retrieve all lessons
-- GET /api/v1/lessons
-10). Admin can get a lesson (by Id)
-- GET /api/v1/lessons/:id
-11). Admin can update a lesson (by Id)
-- PUT /api/v1/lessons/:id
-    - parameters - {"name":"ade","description":"a description"}
-12). Admin can delete a lesson (by Id)
-- DELETE /api/v1/lessons/:id
-13 Admin signs up as a tutor but you can make a tutor of your choice an admin by giving them the admin role. Not all tutors must be admin. Just a few.
-- PATCH /api/v1/tutors/:id
-    - no parameter needed
 
  
 
