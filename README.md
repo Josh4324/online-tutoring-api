@@ -14,6 +14,8 @@ Sample token -
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MnQ5amN1b2s5ZDBiNDFnIiwiam9iUm9sZSI6ImFkbWluIiwiaWF0IjoxNTg4Mzc1MjcyLCJleHAiOjE1ODg0NjE2NzJ9.ovPC3QFiNNW6afCBNpeFQ0UBZACjtf3OSfznHY823XU
 ***
 
+To use it on PostMan, copy the token, go to the authorization tab and paste the code in into the token input field.
+
 ## SignUp and Login
 
 To be able to use the API, you can sign up as Student or Tutor
@@ -131,7 +133,7 @@ Success Response -
 }
 ```
 
-**Admin can delete a subject in a category (by Id)**
+**Admin can delete a subject in a category (by Id) - Endpoint**
 
 DELETE https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject/:id
 
@@ -145,6 +147,179 @@ Success Response -
     "name": "English"
 }
 ```
+
+**Admin can update a category - Endpoint**
+
+PUT https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name
+
+- :category_name - i.e primary, JSS, SSS
+
+Parameters Required - 
+- name
+- description
+
+```
+{
+	"name":"primary",
+	"description":"New Primary School"
+}
+```
+Success Response -
+```
+{
+    "status": true,
+    "message": "Category was updated successfully",
+    "name": "primary",
+    "id": "5eb37805cfa699267c25f044"
+}
+```
+
+
+**Admin can delete a category - Endpoint**
+
+DELETE /api/v1/categories/:category_name
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "message": "Category was deleted successfully",
+    "name": "primary"
+}
+```
+
+**Admin can retrieve all tutors - Endpoint**
+
+GET  https://online-tutoring-api.herokuapp.com/api/v1/tutors
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "data": [
+        {
+            "_id": "5eb34fe04b6d3134b4f15208",
+            "first_name": "Samson",
+            "last_name": "Olayemi",
+            "role": "Tutor",
+            "email": "yemi@yahoo.com",
+            "password": "$2a$12$A6Nkjuvid53kAZConHPb1eZZFQtlTjQc62FqUdmSGhrYXAQPqFMny",
+            "createdAt": "2020-05-07T00:01:36.124Z",
+            "updatedAt": "2020-05-07T00:01:36.124Z",
+            "__v": 0
+        },
+        {
+            "_id": "5eb366b7a7817510b0352f04",
+            "first_name": "Eli",
+            "last_name": "Ade",
+            "role": "Tutor",
+            "email": "eli@yahoo.com",
+            "password": "$2a$12$mN9prrPbxh4B3ifQCwBdXeAnbk5IbZO49yAtYNGge.KoPW8U5qd3C",
+            "createdAt": "2020-05-07T01:39:03.280Z",
+            "updatedAt": "2020-05-07T01:39:03.280Z",
+            "__v": 0
+        }
+    ]
+}
+```
+
+**Admin can get a tutor (by Id) - Endpoint**
+
+GET  https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id
+
+:id - tutor id
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "data": [
+        {
+            "_id": "5eb366b7a7817510b0352f04",
+            "first_name": "Eli",
+            "last_name": "Ade",
+            "role": "Tutor",
+            "email": "eli@yahoo.com",
+            "password": "$2a$12$mN9prrPbxh4B3ifQCwBdXeAnbk5IbZO49yAtYNGge.KoPW8U5qd3C",
+            "createdAt": "2020-05-07T01:39:03.280Z",
+            "updatedAt": "2020-05-07T01:39:03.280Z",
+            "__v": 0
+        }
+    ]
+}
+```
+
+**Admin can deactivate a tutor (by Id) - Endpoint**
+
+DELETE  https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "message": "Tutor was deactivated successfully"
+}
+```
+
+**Admin can book lessons - Endpoint**
+
+POST https://online-tutoring-api.herokuapp.com/api/v1/lessons
+
+Parameters Required - 
+- name
+- description
+
+```
+{	
+	"name":"Verbal Lesson",
+	"description":"verbal lesson"
+}
+```
+Success Response -
+```
+{
+    "status": true,
+    "message": "Lesson created successfully",
+    "name": "Verbal Lesson",
+    "id": "5eb46d413cecb24f60382973"
+}
+```
+
+**Admin can retrieve all lessons - Endpoint**
+
+GET https://online-tutoring-api.herokuapp.com/api/v1/lessons
+
+No parameters needed
+
+Success Response -
+```
+{
+    "status": true,
+    "data": [
+        {
+            "_id": "5eb46d413cecb24f60382973",
+            "name": "Verbal Lesson",
+            "description": "verbal lesson",
+            "__v": 0
+        },
+        {
+            "_id": "5eb46d82dee01600174fd9de",
+            "name": "Social Studies Lesson",
+            "description": "social lesson",
+            "__v": 0
+        }
+    ]
+}
+```
+
 
 
 
@@ -174,19 +349,7 @@ General: (For Admin, Tutors and Students);
 
 Admin:
 
-4) Admin can delete or update a category
-- DELETE /api/v1/categories/:category_name
-- PUT    /api/v1/categories/:category_name
-    - parameters - {"name":"ade","description":"a description"}
-5) Admin can retrieve all tutors
-- GET  /api/v1/tutors
-6) Admin can get a tutor (by Id)
-- GET  /api/v1/tutors/:id
-7) Admin can deactivate a tutor (by Id)
-- DELETE  /api/v1/tutors/:id
-8) Admin can book lessons
-- POST /api/v1/lessons
-    - parameters - {"name":"ade","description":"a description"}
+
 9). Admin can retrieve all lessons
 - GET /api/v1/lessons
 10). Admin can get a lesson (by Id)
