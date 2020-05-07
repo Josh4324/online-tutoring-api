@@ -444,8 +444,9 @@ Success Response -
 {
     "status": true,
     "data": {
-        "user": [],
+        "tutors": [],
         "_id": "5eb476a10a0e01001715fd23",
+        "user": [],
         "name": "Math",
         "description": "Mathematics",
         "category": "5eb3786bcfa699267c25f045",
@@ -454,36 +455,119 @@ Success Response -
 }
 ```
 
-i.e https://online-tutoring-api.herokuapp.com/api/v1/categories - To get all categories
+**Admin/Students /tutors can retrieve all subjects, by category - Endpoint**
 
-General: (For Admin, Tutors and Students);
+GET https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject
 
-1. Admin/Students/tutors can retrieve a subject in a category (by Id)
+:category_name - i.e primary, JSS, SSS
 
-- GET /api/v1/categories/:category_name/subject
+No parameters needed
 
-2. Admin/Students /tutors can retrieve all subjects, by category
+Success Response -
 
-- GET /api/v1/categories/:category_name/subject
+```
+{
+    "status": true,
+    "data": [
+        {
+            "tutors": [],
+            "_id": "5eb476a10a0e01001715fd23",
+            "user": [],
+            "name": "Math",
+            "description": "Mathematics",
+            "category": "5eb3786bcfa699267c25f045",
+            "__v": 0
+        }
+    ]
+}
+```
 
-3. Admin/Students /tutors can retrieve all categories
+**Admin/Students/tutors can retrieve all categories - Endpoint**
 
-- GET /api/v1/categories/
+GET https://online-tutoring-api.herokuapp.com/api/v1/categories
 
-4. Admin/Students /tutors can search for subjects by name, sorted alphabetically in ascending order.
+No parameters needed
 
-- GET /api/v1/search/subject?name=subject
+Success Response -
 
-5. Admin/Students can search for tutors by first name, sorted alphabetically in ascending order.
+```
+{
+    "status": true,
+    "data": [
+        {
+            "_id": "5eb2cdf4db507144b8cbcfb8",
+            "name": "SSS",
+            "description": "Senior Secondary School",
+            "__v": 0
+        },
+        {
+            "_id": "5eb3786bcfa699267c25f045",
+            "name": "JSS",
+            "description": "Junior Secondary School",
+            "__v": 0
+        },
+        {
+            "_id": "5eb47cdb20931f00178572da",
+            "name": "primary",
+            "description": "Primary School",
+            "__v": 0
+        }
+    ]
+}
+```
 
-- GET /api/v1/search/tutors?first_name=first_name
 
-6. Admin/Students /tutors can sign in.
+**Admin/Students /tutors can search for subjects by name, sorted alphabetically in ascending order - Endpoint**
 
-- POST /api/v1/user/login
-  - parameters - {"email":"ade@yahoo.com","password":"****\*****"}
+GET https://online-tutoring-api.herokuapp.com/api/v1/search/subject?name=Subject
 
-Tutors:
+
+Success Response -
+
+```
+{
+    "status": true,
+    "data": [
+        {
+            "tutors": [],
+            "_id": "5eb476a10a0e01001715fd23",
+            "user": [],
+            "name": "Math",
+            "description": "Mathematics",
+            "category": "5eb3786bcfa699267c25f045",
+            "__v": 0
+        }
+    ]
+}
+```
+
+**Admin/Students can search for tutors by first name, sorted alphabetically in ascending order. - Endpoint**
+
+ GET https://online-tutoring-api.herokuapp.com/api/v1/search/tutors?first_name=first_name
+
+
+Success Response -
+
+```
+{
+    "status": true,
+    "data": [
+        {
+            "_id": "5eb3451f7e5ab74ebc94a0d2",
+            "first_name": "Esther",
+            "last_name": "Odejobi",
+            "role": "Tutor",
+            "email": "esther@yahoo.com",
+            "password": "$2a$12$0.z9FT74JFjBPq1tmboZ5OMsKHuJZYLJaMG5Kxdh7tAi0RfVbHEvK",
+            "createdAt": "2020-05-06T23:15:43.152Z",
+            "updatedAt": "2020-05-06T23:18:33.399Z",
+            "__v": 0
+        }
+    ]
+}
+```
+
+## Tutors
 
 1. Tutors can register to take a subject in a category
 
