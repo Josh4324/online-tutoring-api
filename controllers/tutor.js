@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Subject = require("../models/subject");
 
 exports.getAllTutors = (req, res, next) => {
     const filter = {
@@ -91,5 +92,33 @@ exports.makeTutorAdmin = (req, res, next) => {
             });
         }
     )
+}
+
+exports.takeSubjectInCategory = (req, res, next) => {
+    const subject_id = req.params.subject_id;
+    const _id = req.params.id;
+    const filter = {_id:subject_id}
+    const update = {
+        user:_id
+    };
+    Subject.findOneAndUpdate(filter, update, {
+        new: true
+    }).then((subject) => {
+        if (subject) {
+            return res.status(201).send({
+                status: true,
+                message: "Subject registered successfully",
+                subject_id: subject._id,
+                name: subject.name
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+
 }
 
