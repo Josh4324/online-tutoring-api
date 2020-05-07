@@ -412,7 +412,7 @@ Success Response -
 
 **Admin can make Tutor an Admin - Endpoint**
 
-PATCH /api/v1/tutors/:id
+PATCH https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id
 
 No parameters needed
 
@@ -569,11 +569,24 @@ Success Response -
 
 ## Tutors
 
-1. Tutors can register to take a subject in a category
+**Tutors can register to take a subject in a category. - Endpoint**
 
-- PATCH /api/v1/tutors/:id/subject/:subject_id
-  - no parameter needed
+PATCH https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id/subject/:subject_id
+  
+- :id - tutor id
+- :subject_id - subject id
 
+No parameters needed
+
+Success Response -
+
+```
+{
+    "status": true,
+    "message": "Tutor is now an Admin",
+    "id": "5eb34fe04b6d3134b4f15208"
+}
+```
 2. Tutors can see all subjects they registered to take
 
 - GET /api/v1/tutors/:id/subject
