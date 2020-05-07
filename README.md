@@ -583,18 +583,79 @@ Success Response -
 ```
 {
     "status": true,
-    "message": "Tutor is now an Admin",
-    "id": "5eb34fe04b6d3134b4f15208"
+    "message": "Subject registered successfully",
+    "subject_name": "Math"
 }
 ```
-2. Tutors can see all subjects they registered to take
 
-- GET /api/v1/tutors/:id/subject
+**Tutors can see all subjects they registered to take. - Endpoint**
 
-3. Tutors can update a registered subject
+GET https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id/subject
 
-- PATCH /api/v1/tutors/:id/subject/:subject_id
-  - parameters - {"name":"ade",description":"a description"}
+- :id - tutor id
+
+No parameters needed
+
+Success Response -
+
+```
+{
+    "status": true,
+    "data": [
+        {
+            "tutors": [
+                "5eb3451f7e5ab74ebc94a0d2"
+            ],
+            "_id": "5eb476a10a0e01001715fd23",
+            "user": [],
+            "name": "Math",
+            "description": "Mathematics",
+            "category": "5eb3786bcfa699267c25f045",
+            "__v": 0
+        }
+    ]
+}
+```
+
+**Tutors can update a registered subject. - Endpoint**
+
+PUT https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id/subject/:subject_id
+
+- :subject_id - subject id
+- :id - tutor id
+
+Parameters Required -
+
+- name
+- description
+
+```
+{	
+	"name":"Math",
+	"description":"Mathematics is great"
+}
+```
+Success Response -
+
+```
+{
+    "status": true,
+    "data": [
+        {
+            "tutors": [
+                "5eb3451f7e5ab74ebc94a0d2"
+            ],
+            "_id": "5eb476a10a0e01001715fd23",
+            "user": [],
+            "name": "Math",
+            "description": "Mathematics is great",
+            "category": "5eb3786bcfa699267c25f045",
+            "__v": 0
+        }
+    ]
+
+```
+
 
 4. Tutors can delete a registered subject
 
