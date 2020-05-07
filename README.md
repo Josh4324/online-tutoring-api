@@ -6,6 +6,10 @@ API - https://online-tutoring-api.herokuapp.com
 
 i.e https://online-tutoring-api.herokuapp.com/api/v1/categories - To get all categories
 
+Admin Details - 
+- email: "esther@yahoo.com"
+- password: "jesus000"
+
 General: (For Admin, Tutors and Students);
 1) Admin/Students /tutors can retrieve a subject in a category (by Id)
 - GET /api/v1/categories/:category_name/subject
