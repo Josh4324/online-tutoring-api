@@ -18,7 +18,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MnQ5amN1b2s5ZDBiNDFnIiwiam9
 
 To be able to use the API, you can sign up as Student or Tutor
 
-SignUp Endpoint
+**SignUp Endpoint**
 
 POST https://online-tutoring-api.herokuapp.com/api/v1/user/signup
 
@@ -45,7 +45,7 @@ Success Response -
 }
 ```
 
-Login Endpoint
+**Login Endpoint**
 
 POST https://online-tutoring-api.herokuapp.com/api/v1/user/login
 
@@ -76,12 +76,16 @@ Admin Details
 - email:"king@yahoo.com",
 - password:"12345"
 
-Admin can create subjects under 3 categories: primary, JSS, SSS - Endpoint
+**Admin can create subjects under 3 categories: primary, JSS, SSS - Endpoint**
 
  POST https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject
 
-Parameters Required - name and description
-:category_name - i.e primary, JSS, SSS
+- :category_name - i.e primary, JSS, SSS
+
+Parameters Required - 
+- name
+- description
+
 
 ```
 {
@@ -100,13 +104,17 @@ Success Response -
 }
 ```
 
-Admin can update a subject in a category (by Id) - Endpoint
+**Admin can update a subject in a category (by Id) - Endpoint**
 
 PUT https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject/:id
 
-Parameters Required - name and description
-:category_name - i.e primary, JSS, SSS
-:id - subject_id("5eb46103b1a95b001751019f")
+- :category_name - i.e primary, JSS, SSS
+- :id - i.e - 5eb46103b1a95b001751019f
+
+Parameters Required - 
+- name
+- description
+
 ```
 {
 	"name":"English",
@@ -123,7 +131,7 @@ Success Response -
 }
 ```
 
-Admin can delete a subject in a category (by Id)
+**Admin can delete a subject in a category (by Id)**
 
 DELETE https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject/:id
 
