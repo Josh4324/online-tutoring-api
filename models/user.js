@@ -23,6 +23,10 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    subjects:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Subject"
+    }],
 }, {
     timestamps: true
 })

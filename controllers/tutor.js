@@ -97,22 +97,41 @@ exports.makeTutorAdmin = (req, res, next) => {
 exports.takeSubjectInCategory = (req, res, next) => {
     const subject_id = req.params.subject_id;
     const _id = req.params.id;
+
     const filter = {
         _id: subject_id
     }
+    const filter2 = {
+        _id
+    }
     const update = {
-        user: _id
+        tutors: _id
     };
-    Subject.findOneAndUpdate(filter, {$push:update}, {
+    const update2 = {
+        subjects: subject_id
+    }
+
+    Subject.findOneAndUpdate(filter, {
+        $push: update
+    }, {
         new: true
     }).then((subject) => {
         if (subject) {
-            return res.status(201).send({
-                status: true,
-                message: "Subject registered successfully",
-                subject_id: subject._id,
-                name: subject.name
-            });
+            User.findOneAndUpdate(filter2, {
+                $push: update2
+            }, {
+                new: true
+            }).then((user) => {
+                if (user) {
+                    return res.status(201).send({
+                        status: true,
+                        message: "Subject registered successfully",
+                        subject_name: subject.name,
+                        tutor_name: user.name
+                    });
+                }
+            })
+
         }
     }).catch(
         (error) => {
