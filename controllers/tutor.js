@@ -73,7 +73,7 @@ exports.makeTutorAdmin = (req, res, next) => {
         _id
     };
     const update = {
-        role:"Admin"
+        role: "Admin"
     };
     User.findOneAndUpdate(filter, update, {
         new: true
@@ -97,9 +97,11 @@ exports.makeTutorAdmin = (req, res, next) => {
 exports.takeSubjectInCategory = (req, res, next) => {
     const subject_id = req.params.subject_id;
     const _id = req.params.id;
-    const filter = {_id:subject_id}
+    const filter = {
+        _id: subject_id
+    }
     const update = {
-        user:_id
+        user: _id
     };
     Subject.findOneAndUpdate(filter, update, {
         new: true
@@ -124,7 +126,9 @@ exports.takeSubjectInCategory = (req, res, next) => {
 
 exports.getSubjectRegistered = (req, res, next) => {
     const _id = req.params.id;
-    const filter = {user:_id};
+    const filter = {
+        user: _id
+    };
     Subject.find(filter).then((subjects) => {
         if (subjects) {
             return res.status(200).send({
@@ -141,3 +145,39 @@ exports.getSubjectRegistered = (req, res, next) => {
     )
 }
 
+exports.updateRegisteredSubject = (req, res, next) => {
+    const _id = req.params.id;
+    const subject_id = req.params.subject_id;
+    const {
+        name,
+        description
+    } = req.body;
+    const filter = {
+        _id: subject_id
+    }
+    const update = {
+        name,
+        description
+    };
+    Subject.findOne(filter).then((subject) => {
+        if (subject.user.equals(_id)) {
+            Subject.findOneAndUpdate(filter, update).then((subject) => {
+                if (subject) {
+                    return res.status(200).send({
+                        status: true,
+                        message: "Subject updated successfully",
+                        name: subject.name,
+                        category_id: subject.category,
+                        id: subject._id,
+                    });
+                }
+            })
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
