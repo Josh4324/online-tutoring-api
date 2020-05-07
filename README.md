@@ -1,4 +1,5 @@
 **README**
+
 Authorization token can be gotten on login and it will be used on all the endpoints
 
 General: (For Admin, Tutors and Students);
