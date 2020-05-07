@@ -13,5 +13,6 @@ router.put('/:id/subject/:subject_id',auth.tutorAuthorization, userController.up
 router.patch('/:id', auth.adminAuthorization, userController.makeTutorAdmin);
 router.patch('/:id/subject/:subject_id', auth.tutorAuthorization, userController.takeSubjectInCategory);
 router.delete('/:id', auth.adminAuthorization, userController.deactivateTutorById);
+router.delete('/:id/subject/:subject_id', auth.tutorAuthorization, userController.deleteRegisteredSubject);
 
 module.exports = router;
