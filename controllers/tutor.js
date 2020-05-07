@@ -122,3 +122,22 @@ exports.takeSubjectInCategory = (req, res, next) => {
 
 }
 
+exports.getSubjectRegistered = (req, res, next) => {
+    const _id = req.params.id;
+    const filter = {user:_id};
+    Subject.find(filter).then((subjects) => {
+        if (subjects) {
+            return res.status(200).send({
+                status: true,
+                data: subjects
+            });
+        }
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
+}
+
