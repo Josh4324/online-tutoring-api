@@ -4,15 +4,17 @@ API - https://online-tutoring-api.herokuapp.com/api/v1
 
 ## Authentication
 
-This API uses jsonwebtoken as a form of authentication 
+This API uses jsonwebtoken as a form of authentication
 
 The token can be gotten through login
 
-Sample token - 
+Sample token -
 
-***
+---
+
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1MnQ5amN1b2s5ZDBiNDFnIiwiam9iUm9sZSI6ImFkbWluIiwiaWF0IjoxNTg4Mzc1MjcyLCJleHAiOjE1ODg0NjE2NzJ9.ovPC3QFiNNW6afCBNpeFQ0UBZACjtf3OSfznHY823XU
-***
+
+---
 
 To use it on PostMan, copy the token, go to the authorization tab and paste the code in into the token input field.
 
@@ -25,8 +27,9 @@ To be able to use the API, you can sign up as Student or Tutor
 POST https://online-tutoring-api.herokuapp.com/api/v1/user/signup
 
 Parameters Required - first_name, last_name, role, email and password
+
 ```
-{	
+{
 	"first_name":"Eli",
 	"last_name":"Ade",
 	"role":"Tutor",
@@ -38,6 +41,7 @@ Parameters Required - first_name, last_name, role, email and password
 The role can only be "Tutor" or "Student" and it is case sensitive
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -54,12 +58,14 @@ POST https://online-tutoring-api.herokuapp.com/api/v1/user/login
 Parameters Required - email and password
 
 ```
-{	
+{
 	"email":"eli@yahoo.com",
 	"password":"jesus000"
 }
 ```
+
 Success Response -
+
 ```
 {
     "status": "success",
@@ -68,26 +74,25 @@ Success Response -
 }
 ```
 
-
 ## Admin
 
 Only a user with an Admin Role can use this route
 
-Admin Details 
+Admin Details
 
 - email:"king@yahoo.com",
 - password:"12345"
 
 **Admin can create subjects under 3 categories: primary, JSS, SSS - Endpoint**
 
- POST https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject
+POST https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject
 
 - :category_name - i.e primary, JSS, SSS
 
-Parameters Required - 
+Parameters Required -
+
 - name
 - description
-
 
 ```
 {
@@ -95,7 +100,9 @@ Parameters Required -
 	"description":"English"
 }
 ```
+
 Success Response -
+
 ```
 {
     "status": true,
@@ -113,7 +120,8 @@ PUT https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/s
 - :category_name - i.e primary, JSS, SSS
 - :id - i.e - 5eb46103b1a95b001751019f
 
-Parameters Required - 
+Parameters Required -
+
 - name
 - description
 
@@ -123,7 +131,9 @@ Parameters Required -
 	"description":"English"
 }
 ```
+
 Success Response -
+
 ```
 {
     "status": true,
@@ -140,6 +150,7 @@ DELETE https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_nam
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -154,7 +165,8 @@ PUT https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name
 
 - :category_name - i.e primary, JSS, SSS
 
-Parameters Required - 
+Parameters Required -
+
 - name
 - description
 
@@ -164,7 +176,9 @@ Parameters Required -
 	"description":"New Primary School"
 }
 ```
+
 Success Response -
+
 ```
 {
     "status": true,
@@ -174,7 +188,6 @@ Success Response -
 }
 ```
 
-
 **Admin can delete a category - Endpoint**
 
 DELETE /api/v1/categories/:category_name
@@ -182,6 +195,7 @@ DELETE /api/v1/categories/:category_name
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -192,11 +206,12 @@ Success Response -
 
 **Admin can retrieve all tutors - Endpoint**
 
-GET  https://online-tutoring-api.herokuapp.com/api/v1/tutors
+GET https://online-tutoring-api.herokuapp.com/api/v1/tutors
 
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -229,13 +244,14 @@ Success Response -
 
 **Admin can get a tutor (by Id) - Endpoint**
 
-GET  https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id
+GET https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id
 
 :id - tutor id
 
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -257,11 +273,12 @@ Success Response -
 
 **Admin can deactivate a tutor (by Id) - Endpoint**
 
-DELETE  https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id
+DELETE https://online-tutoring-api.herokuapp.com/api/v1/tutors/:id
 
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -273,17 +290,20 @@ Success Response -
 
 POST https://online-tutoring-api.herokuapp.com/api/v1/lessons
 
-Parameters Required - 
+Parameters Required -
+
 - name
 - description
 
 ```
-{	
+{
 	"name":"Verbal Lesson",
 	"description":"verbal lesson"
 }
 ```
+
 Success Response -
+
 ```
 {
     "status": true,
@@ -300,6 +320,7 @@ GET https://online-tutoring-api.herokuapp.com/api/v1/lessons
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -329,6 +350,7 @@ GET https://online-tutoring-api.herokuapp.com/api/v1/lessons/:id
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -347,17 +369,20 @@ PUT https://online-tutoring-api.herokuapp.com/api/v1/lessons/:id
 
 - :id - lesson-id
 
-Parameters Required - 
+Parameters Required -
+
 - name
 - description
 
 ```
-{	
+{
 	"name":"Verbal Lesson",
 	"description":"verbal lesson"
 }
 ```
+
 Success Response -
+
 ```
 {
     "status": true,
@@ -376,6 +401,7 @@ DELETE https://online-tutoring-api.herokuapp.com/api/v1/lessons/:id
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -391,6 +417,7 @@ PATCH /api/v1/tutors/:id
 No parameters needed
 
 Success Response -
+
 ```
 {
     "status": true,
@@ -403,65 +430,95 @@ Success Response -
 
 This a a general route, authentication is enough to access these routes
 
-
 **Admin/Students/tutors can retrieve a subject in a category (by Id) - Endpoint**
 
-GET https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject
+GET https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name/subject/:id
 
+- :id - subject-id
+
+No parameters needed
+
+Success Response -
+
+```
+{
+    "status": true,
+    "data": {
+        "user": [],
+        "_id": "5eb476a10a0e01001715fd23",
+        "name": "Math",
+        "description": "Mathematics",
+        "category": "5eb3786bcfa699267c25f045",
+        "__v": 0
+    }
+}
+```
 
 i.e https://online-tutoring-api.herokuapp.com/api/v1/categories - To get all categories
 
-
-
-
 General: (For Admin, Tutors and Students);
-1) Admin/Students/tutors can retrieve a subject in a category (by Id)
+
+1. Admin/Students/tutors can retrieve a subject in a category (by Id)
+
 - GET /api/v1/categories/:category_name/subject
 
-2) Admin/Students /tutors can retrieve all subjects, by category
+2. Admin/Students /tutors can retrieve all subjects, by category
+
 - GET /api/v1/categories/:category_name/subject
-3) Admin/Students /tutors can retrieve all categories
+
+3. Admin/Students /tutors can retrieve all categories
+
 - GET /api/v1/categories/
-4) Admin/Students /tutors can search for subjects by name, sorted alphabetically in ascending order.
-- GET /api/v1/search/subject?name=subject
-5) Admin/Students  can search for tutors by first name, sorted alphabetically in ascending order.
-- GET /api/v1/search/tutors?first_name=first_name
-6) Admin/Students /tutors can sign in.
-- POST /api/v1/user/login
-  - parameters - {"email":"ade@yahoo.com","password":"*********"}
 
- 
+4. Admin/Students /tutors can search for subjects by name, sorted alphabetically in ascending order.
+
+- GET /api/v1/search/subject?name=subject
+
+5. Admin/Students can search for tutors by first name, sorted alphabetically in ascending order.
+
+- GET /api/v1/search/tutors?first_name=first_name
+
+6. Admin/Students /tutors can sign in.
+
+- POST /api/v1/user/login
+  - parameters - {"email":"ade@yahoo.com","password":"****\*****"}
 
 Tutors:
 
-1) Tutors can register to take a subject in a category
-- PATCH  /api/v1/tutors/:id/subject/:subject_id
-    - no parameter needed
+1. Tutors can register to take a subject in a category
 
-2) Tutors can see all subjects they registered to take
-- GET  /api/v1/tutors/:id/subject
-3) Tutors can update a registered subject
-- PATCH   /api/v1/tutors/:id/subject/:subject_id
-    - parameters - {"name":"ade",description":"a description"}
-4) Tutors can delete a registered subject
-- DELETE   /api/v1/tutors/:id/subject/:subject_id
- 
+- PATCH /api/v1/tutors/:id/subject/:subject_id
+  - no parameter needed
+
+2. Tutors can see all subjects they registered to take
+
+- GET /api/v1/tutors/:id/subject
+
+3. Tutors can update a registered subject
+
+- PATCH /api/v1/tutors/:id/subject/:subject_id
+  - parameters - {"name":"ade",description":"a description"}
+
+4. Tutors can delete a registered subject
+
+- DELETE /api/v1/tutors/:id/subject/:subject_id
 
 Students:
 
-1) Students can sign up.
+1. Students can sign up.
+
 - POST /api/v1/user/signup
 - parameter - {
-    "first_name":"Eli",
-	"last_name":"Ade",
-	"role":"Tutor",
-	"email":"eli@yahoo.com",
-	"password":"jesus000"
-}
+  "first_name":"Eli",
+  "last_name":"Ade",
+  "role":"Tutor",
+  "email":"eli@yahoo.com",
+  "password":"jesus000"
+  }
 
-2) Students can see all tutors taking a subject in a category
+2. Students can see all tutors taking a subject in a category
 
-3) Students can book lessons
+3. Students can book lessons
+
 - POST /api/v1/lessons
 - parameters - {"name":"ade","description":"a description"}
- 
