@@ -110,7 +110,6 @@ exports.takeSubjectInCategory = (req, res, next) => {
     const update2 = {
         subjects: subject_id
     }
-
     Subject.findOneAndUpdate(filter, {
         $push: update
     }, {
@@ -146,7 +145,7 @@ exports.takeSubjectInCategory = (req, res, next) => {
 exports.getSubjectRegistered = (req, res, next) => {
     const _id = req.params.id;
     const filter = {
-        user: _id
+        tutors: _id
     };
     Subject.find(filter).then((subjects) => {
         if (subjects) {
@@ -165,6 +164,7 @@ exports.getSubjectRegistered = (req, res, next) => {
 }
 
 exports.updateRegisteredSubject = (req, res, next) => {
+    console.log("reg")
     const _id = req.params.id;
     const subject_id = req.params.subject_id;
     const {
@@ -179,7 +179,8 @@ exports.updateRegisteredSubject = (req, res, next) => {
         description
     };
     Subject.findOne(filter).then((subject) => {
-        if (subject.user.equals(_id)) {
+        console.log(subject);
+        if (subject.tutors.indexOf(_id) !== -1) {
             Subject.findOneAndUpdate(filter, update).then((subject) => {
                 if (subject) {
                     return res.status(200).send({
