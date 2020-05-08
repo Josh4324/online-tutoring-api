@@ -207,7 +207,7 @@ exports.deleteSubjectById = (req, res, next) => {
     };
     Subject.findOneAndDelete(filter).then((subject) => {
         if (subject) {
-            User.update({
+            User.updateOne({
                 subjects: subject._id
             }, {
                 '$pull': {

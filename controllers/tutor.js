@@ -212,7 +212,7 @@ exports.deleteRegisteredSubject = (req, res, next) => {
         if (subject.tutors.indexOf(_id) !== -1) {
             Subject.findOneAndDelete(filter).then((subject) => {
                 if (subject) {
-                    User.update({
+                    User.updateOne({
                         subjects: subject._id
                     }, {
                         '$pull': {
