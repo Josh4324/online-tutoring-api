@@ -1,5 +1,6 @@
 const Category = require("../models/category");
 const Subject = require("../models/subject");
+const User = require("../models/user");
 
 exports.addCategory = (req, res, next) => {
     const {
@@ -206,11 +207,20 @@ exports.deleteSubjectById = (req, res, next) => {
     };
     Subject.findOneAndDelete(filter).then((subject) => {
         if (subject) {
-            return res.status(200).send({
-                status: true,
-                message: "Subject was deleted successfully",
-                name: subject.name
-            });
+            User.update({
+                subjects: subject._id
+            }, {
+                '$pull': {
+                    subjects: subject._id
+                }
+            }).then((user) => {
+                return res.status(200).send({
+                    status: true,
+                    message: "Subject was deleted successfully",
+                    name: subject.name
+                });
+            })
+
         }
     }).catch(
         (error) => {
