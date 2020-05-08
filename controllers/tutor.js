@@ -212,13 +212,21 @@ exports.deleteRegisteredSubject = (req, res, next) => {
         if (subject.tutors.indexOf(_id) !== -1) {
             Subject.findOneAndDelete(filter).then((subject) => {
                 if (subject) {
-                    return res.status(200).send({
-                        status: true,
-                        message: "Subject deleted successfully",
-                        name: subject.name,
-                        category_id: subject.category,
-                        id: subject._id,
-                    });
+                    User.update({
+                        subjects: subject._id
+                    }, {
+                        '$pull': {
+                            subjects: subject._id
+                        }
+                    }).then((user) => {
+                        return res.status(200).send({
+                            status: true,
+                            message: "Subject deleted successfully",
+                            name: subject.name,
+                            category_id: subject.category,
+                            id: subject._id,
+                        });
+                    })
                 }
             })
         }
