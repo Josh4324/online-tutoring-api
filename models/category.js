@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Subject = require("../models/subject");
 
 const categorySchema = mongoose.Schema({
     name: {
@@ -10,5 +11,6 @@ const categorySchema = mongoose.Schema({
         required: true
     }
 })
+
 
 module.exports = mongoose.model('Category', categorySchema);

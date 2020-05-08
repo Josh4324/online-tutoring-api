@@ -13,10 +13,6 @@ const subjectSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category"
     },
-    category: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category"
-    },
     tutors:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
