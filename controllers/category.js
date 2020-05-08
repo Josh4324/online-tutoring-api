@@ -139,7 +139,7 @@ exports.addSubject = (req, res, next) => {
                             status: false,
                             message: "This subject already exists",
                         });
-                    }else {
+                    } else {
                         let subject = new Subject({
                             name,
                             description,
@@ -156,7 +156,23 @@ exports.addSubject = (req, res, next) => {
                                 })
                             })
                     }
-                } 
+                } else {
+                    let subject = new Subject({
+                        name,
+                        description,
+                        category: category._id
+                    })
+                    return subject.save()
+                        .then((subject) => {
+                            res.status(201).send({
+                                status: true,
+                                message: "Subject created successfully",
+                                name: subject.name,
+                                category_id: subject.category,
+                                id: subject._id,
+                            })
+                        })
+                }
             })
         }
     }).catch(
