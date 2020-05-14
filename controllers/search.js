@@ -15,7 +15,7 @@ exports.searchBySubjectName = (req, res, next) => {
     }).catch(
         (error) => {
             res.status(500).json({
-                error: error
+                error
             });
         }
     )
@@ -37,7 +37,7 @@ exports.searchByTutorFirstName = (req, res, next) => {
     }).catch(
         (error) => {
             res.status(500).json({
-                error: error
+                error
             });
         }
     )
