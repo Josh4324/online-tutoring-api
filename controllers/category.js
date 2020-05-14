@@ -239,7 +239,6 @@ exports.deleteSubjectById = (req, res, next) => {
                     name: subject.name
                 });
             })
-
         }
     }).catch(
         (error) => {
@@ -256,6 +255,7 @@ exports.getSubjectByCategories = (req, res, next) => {
         name: category_name
     };
     Category.findOne(filter).then((category) => {
+        if (category){
         Subject.find({
             category: category._id
         }).then((subjects) => {
@@ -266,6 +266,7 @@ exports.getSubjectByCategories = (req, res, next) => {
                 });
             }
         })
+        }
     }).catch(
         (error) => {
             res.status(500).json({

@@ -76,7 +76,7 @@ exports.logIn = (req, res, next) => {
             bcrypt.compare(password, user.password).then((valid) => {
                 if (!valid) {
                     return res
-                        .status(403).send({
+                        .status(401).send({
                             status: false,
                             message: "Incorrect username or password, please review details and try again"
                         });

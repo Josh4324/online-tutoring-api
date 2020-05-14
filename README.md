@@ -190,7 +190,7 @@ Success Response -
 
 **Admin can delete a category - Endpoint**
 
-DELETE /api/v1/categories/:category_name
+DELETE https://online-tutoring-api.herokuapp.com/api/v1/categories/:category_name
 
 No parameters needed
 
@@ -677,7 +677,7 @@ Success Response -
 }
 ```
 
-## Students:
+## Students
 
 **Students can see all tutors taking a subject in a category. - Endpoint**
 
@@ -738,5 +738,73 @@ Success Response -
     "message": "Lesson created successfully",
     "name": "Verbal Lesson",
     "id": "5eb46d413cecb24f60382973"
+}
+```
+
+## Errors
+
+**Incorrect path**
+
+i.e using https://online-tutoring-api.herokuapp.com/api/v1/lesson instead of https://online-tutoring-api.herokuapp.com/api/v1/lessons
+i.e using the wrong request - Using GET instead of POST
+
+Response - Redirected to default page - <h1>Welcome to my online tutoring api page</h1>
+
+**Missing Parameters or Invalid Parameters**
+
+Response 
+
+```
+{
+    "errors": [
+        {
+            "password": "Invalid value"
+        },
+        {
+            "password": "Password must have at least 5 characters"
+        }
+    ]
+}
+
+```
+**Wrong Id**
+
+Response
+
+```
+{
+    "error": {
+        "message": "Cast to ObjectId failed for value \"1\" at path \"_id\" for model \"Subject\"",
+        "name": "CastError",
+        "stringValue": "\"1\"",
+        "value": "1",
+        "path": "_id",
+        "reason": {}
+    }
+}
+```
+
+**Authentication Errors**
+
+**Incorrect credentials or token trying to access autenticated route**
+
+- Error 401
+
+Response 
+```
+{
+    "error": "Unauthorized",
+    "status": "error"
+}
+```
+**correct credentials or token but trying to access route without right role or permisssion**
+
+- Error 403
+
+Response 
+```
+{
+    "error": "Unauthorized",
+    "status": "error"
 }
 ```
