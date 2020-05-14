@@ -752,6 +752,8 @@ Response - Redirected to default page - <h1>Welcome to my online tutoring api pa
 
 **Missing Parameters or Invalid Parameters**
 
+- Error 422
+
 Response 
 
 ```
@@ -797,14 +799,16 @@ Response
     "status": "error"
 }
 ```
-**correct credentials or token but trying to access route without right role or permisssion**
+**Correct credentials or token but trying to access route without right role or permisssion**
 
 - Error 403
 
 Response 
 ```
 {
-    "error": "Unauthorized",
+    "error": "You do not have permission to visit this route",
     "status": "error"
 }
 ```
+
+
