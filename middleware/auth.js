@@ -7,7 +7,6 @@ exports.authentication = (req, res, next) => {
         const decodedToken = jwt.verify(token, process.env.SECRET);
         const role = decodedToken.role;
         if (!role) {
-            console.log(role)
             return res.status(401).json({
                 error: "UnAuthorized",
                 status: "error"
@@ -30,16 +29,16 @@ exports.adminAuthorization = (req, res, next) => {
         const role = decodedToken.role;
         if (role !== "Admin") {
 
-            return res.status(401).json({
-                error: "UnAuthorized",
+            return res.status(403).json({
+                error: "You do not have permission to visit this route",
                 status: "error"
             });
         } else {
             next()
         }
     } catch {
-        res.status(401).json({
-            error: "Unauthorized",
+        res.status(403).json({
+            error: "You do not have permission to visit this route",
             status: "error"
         })
     }
@@ -52,16 +51,16 @@ exports.tutorAuthorization = (req, res, next) => {
         const role = decodedToken.role;
         if (role !== "Admin" && role !== "Tutor") {
 
-            return res.status(401).json({
-                error: "UnAuthorized",
+            return res.status(403).json({
+                error: "You do not have permission to visit this route",
                 status: "error"
             });
         } else {
             next()
         }
     } catch {
-        res.status(401).json({
-            error: "Unauthorized",
+        res.status(403).json({
+            error: "You do not have permission to visit this route",
             status: "error"
         })
     }
@@ -72,19 +71,18 @@ exports.adminAndSudentAuthorization = (req, res, next) => {
         const token = req.headers.authorization.split(" ")[1];
         const decodedToken = jwt.verify(token, process.env.SECRET);
         const role = decodedToken.role;
-        console.log(role);
         if (role !== "Admin" && role !== "Student") {
             console.log("error")
-            return res.status(401).json({
-                error: "UnAuthorized",
+            return res.status(403).json({
+                error: "You do not have permission to visit this route",
                 status: "error"
             });
         } else {
             next()
         }
     } catch {
-        res.status(401).json({
-            error: "Unauthorized",
+        res.status(403).json({
+            error: "You do not have permission to visit this route",
             status: "error"
         })
     }
