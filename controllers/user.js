@@ -42,7 +42,8 @@ exports.signUp = (req, res, next) => {
                             res.status(201).send({
                                 status: true,
                                 message: "User account successfully created",
-                                id: user._id
+                                id: user._id,
+                                role: user.role
                             })
                         }
                     })
@@ -75,7 +76,7 @@ exports.logIn = (req, res, next) => {
             bcrypt.compare(password, user.password).then((valid) => {
                 if (!valid) {
                     return res
-                        .status(403).send({
+                        .status(401).send({
                             status: false,
                             message: "Incorrect username or password, please review details and try again"
                         });

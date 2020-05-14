@@ -40,6 +40,19 @@ exports.subjectPostValidationRules = () => {
     ]
 }
 
+exports.categoryRules = () => {
+    return [
+        param("category_name").notEmpty().isIn(["primary", "JSS", "SSS"]).withMessage("Category Name should be 'primary' or 'JSS' or 'SSS' "),
+    ]
+}
+
+exports.bookPostValidationRules = () => {
+    return [
+        body("name").notEmpty().withMessage("Name is required"),
+        body("description").notEmpty().withMessage("Description is Required")
+    ]
+}
+
 exports.validate = (req, res, next) => {
     try {
         const errors = validationResult(req)

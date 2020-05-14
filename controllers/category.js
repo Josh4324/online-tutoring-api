@@ -1,5 +1,6 @@
 const Category = require("../models/category");
 const Subject = require("../models/subject");
+const User = require("../models/user");
 
 exports.addCategory = (req, res, next) => {
     const {
@@ -96,11 +97,16 @@ exports.deleteCategory = (req, res, next) => {
     };
     Category.findOneAndDelete(filter).then((category) => {
         if (category) {
-            return res.status(200).send({
-                status: true,
-                message: "Category was deleted successfully",
-                name: category.name
-            });
+            Subject.deleteMany({
+                category: category._id
+            }).then(() => {
+                return res.status(200).send({
+                    status: true,
+                    message: "Category was deleted successfully",
+                    name: category.name
+                });
+            })
+
         }
     }).catch(
         (error) => {
@@ -122,7 +128,6 @@ exports.addSubject = (req, res, next) => {
     const filter = {
         name: category_name
     };
-
     Category.findOne(filter).then((category) => {
         if (category) {
             Subject.findOne({
@@ -134,6 +139,22 @@ exports.addSubject = (req, res, next) => {
                             status: false,
                             message: "This subject already exists",
                         });
+                    } else {
+                        let subject = new Subject({
+                            name,
+                            description,
+                            category: category._id
+                        })
+                        return subject.save()
+                            .then((subject) => {
+                                res.status(201).send({
+                                    status: true,
+                                    message: "Subject created successfully",
+                                    name: subject.name,
+                                    category_id: subject.category,
+                                    id: subject._id,
+                                })
+                            })
                     }
                 } else {
                     let subject = new Subject({
@@ -153,10 +174,14 @@ exports.addSubject = (req, res, next) => {
                         })
                 }
             })
-
-
         }
-    })
+    }).catch(
+        (error) => {
+            res.status(500).json({
+                error: error
+            });
+        }
+    )
 
 }
 
@@ -191,7 +216,7 @@ exports.updateSubjectById = (req, res, next) => {
             });
         }
     )
-    
+
 }
 
 exports.deleteSubjectById = (req, res, next) => {
@@ -201,11 +226,19 @@ exports.deleteSubjectById = (req, res, next) => {
     };
     Subject.findOneAndDelete(filter).then((subject) => {
         if (subject) {
-            return res.status(200).send({
-                status: true,
-                message: "Subject was deleted successfully",
-                name: subject.name
-            });
+            User.updateOne({
+                subjects: subject._id
+            }, {
+                '$pull': {
+                    subjects: subject._id
+                }
+            }).then((user) => {
+                return res.status(200).send({
+                    status: true,
+                    message: "Subject was deleted successfully",
+                    name: subject.name
+                });
+            })
         }
     }).catch(
         (error) => {
@@ -222,14 +255,18 @@ exports.getSubjectByCategories = (req, res, next) => {
         name: category_name
     };
     Category.findOne(filter).then((category) => {
-        Subject.find({category:category._id}).then((subjects)=> {
-            if(subjects){
+        if (category){
+        Subject.find({
+            category: category._id
+        }).then((subjects) => {
+            if (subjects) {
                 return res.status(200).send({
                     status: true,
                     data: subjects
                 });
             }
         })
+        }
     }).catch(
         (error) => {
             res.status(500).json({
@@ -249,7 +286,7 @@ exports.getOneSubjectById = (req, res, next) => {
         if (subject) {
             return res.status(200).send({
                 status: true,
-                data:subject
+                data: subject
             });
         }
     }).catch(
