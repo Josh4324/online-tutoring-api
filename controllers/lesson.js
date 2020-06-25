@@ -50,6 +50,11 @@ exports.getLessonById = (req, res, next) => {
                 status: true,
                 data:lesson
             });
+        }else{
+            return res.status(401).send({
+                status: true,
+                message:"lesson Id not found"
+            });
         }
     }).catch(
         (error) => {
