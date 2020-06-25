@@ -26,7 +26,7 @@ app.use('/api/v1/lessons', lessonRoutes);
 app.use('/api/v1/students', studentRoutes);
 
 
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
     res.send("<h1>Welcome to my online tutoring api page</h1>");
 });
 
