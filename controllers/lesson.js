@@ -48,7 +48,12 @@ exports.getLessonById = (req, res, next) => {
         if (lesson) {
             return res.status(200).send({
                 status: true,
-                data:lesson
+                data: lesson
+            });
+        } else {
+            return res.status(404).send({
+                status: true,
+                message: "lesson Id not found"
             });
         }
     }).catch(
@@ -62,7 +67,10 @@ exports.getLessonById = (req, res, next) => {
 
 exports.updateLessonById = (req, res, next) => {
     const lesson_id = req.params.id;
-    const {name, description} = req.body;
+    const {
+        name,
+        description
+    } = req.body;
     const filter = {
         _id: lesson_id
     };
@@ -88,7 +96,7 @@ exports.updateLessonById = (req, res, next) => {
             });
         }
     )
-    
+
 }
 
 exports.deleteLessonById = (req, res, next) => {
