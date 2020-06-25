@@ -26,9 +26,10 @@ app.use('/api/v1/lessons', lessonRoutes);
 app.use('/api/v1/students', studentRoutes);
 
 
-app.use((req, res) => {
+app.get("/", (req, res) => {
     res.send("<h1>Welcome to my online tutoring api page</h1>");
 });
+
 
 //Handling unhandle routes
 app.all("*", (req, res) => {
@@ -37,6 +38,7 @@ app.all("*", (req, res) => {
         message: `Route not found. Can't find ${req.originalUrl} on this server`,
     });
 });
+
 
 mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
