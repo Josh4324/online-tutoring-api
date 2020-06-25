@@ -20,14 +20,22 @@ app.use(express.urlencoded({
 
 app.use('/api/v1/user', userRoutes);
 app.use('/api/v1/categories', categoryRoutes);
-app.use('/api/v1/search',searchRoutes);
-app.use('/api/v1/tutors',tutorRoutes);
-app.use('/api/v1/lessons',lessonRoutes);
-app.use('/api/v1/students',studentRoutes);
+app.use('/api/v1/search', searchRoutes);
+app.use('/api/v1/tutors', tutorRoutes);
+app.use('/api/v1/lessons', lessonRoutes);
+app.use('/api/v1/students', studentRoutes);
 
 
 app.use((req, res) => {
     res.send("<h1>Welcome to my online tutoring api page</h1>");
+});
+
+//Handling unhandle routes
+app.all("*", (req, res) => {
+    return res.status(404).json({
+        status: "Error 404",
+        message: `Route not found. Can't find ${req.originalUrl} on this server`,
+    });
 });
 
 mongoose.set('useCreateIndex', true);
