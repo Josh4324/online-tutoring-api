@@ -8,7 +8,7 @@
 
 - [Introduction](#introduction)
 
-- [Installation](#instructions)
+- [Installation](#installation)
 
 - [Usage](#usage)
 
